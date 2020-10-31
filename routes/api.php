@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/testAPI', [QuestionController::class, 'testAPI']);
+Route::get('/question', [ApiController::class, 'getQuestion']);
+Route::get('/category', [ApiController::class, 'getCategories']);

@@ -42,10 +42,21 @@ class QuestionController extends Controller
         return redirect()->route('admin.question')->with('info', 'question deleted');
     }
 
-    public function testAPI() {
-        $questions = Question::all();
-        $categories = Category::all();
-        return Response::json($questions);
+    public function downloadAudio() {
+        for($i = 2001; $i <= 2100; $i++) {
+            $ch = curl_init('http://url-to-file.com/audio.mp3');
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_NOBODY, 0);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 1);
+            $output = curl_exec($ch);
+            $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+            if ($status == 200) {
+                file_put_contents(dirname(__FILE__) . '/audio.mp3', $output);
+            }
+        }
     }
-
 }
